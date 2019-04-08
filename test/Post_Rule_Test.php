@@ -182,4 +182,30 @@ class Post_Rule_Test extends TestCase
     }
 
 
+    public function testRule_Email()
+    {
+        unset($_POST['plop']);
+
+        $p = new Post_Rule_Email('plop');
+        
+        $this->assertFalse($p->check());
+        $p->dont_check_if_empty();
+        $this->assertTrue($p->check());
+        $p->check_if_empty();
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "a";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = "tinad.fr";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = 3;
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "user@local.host";
+        $this->assertTrue($p->check());
+        $_POST['plop'] = "john.doe@example.com";
+        $this->assertTrue($p->check());
+
+    }
+
 }
