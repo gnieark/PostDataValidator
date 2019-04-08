@@ -151,4 +151,35 @@ class Post_Rule_Test extends TestCase
         $_POST['plop'] = 13;
         $this->assertFalse($p->check());
     }
+    public function testRule_Step()
+    {
+        unset($_POST['plop']);
+
+        $p = new Post_Rule_Step('plop', 8);
+        
+        $this->assertFalse($p->check());
+        $p->dont_check_if_empty();
+        $this->assertTrue($p->check());
+        $p->check_if_empty();
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "a";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = "3";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = 3;
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "16";
+        $this->assertTrue($p->check());
+        $_POST['plop'] = 16;
+        $this->assertTrue($p->check());
+
+        $_POST['plop'] = "4";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = 4;
+        $this->assertFalse($p->check());
+    }
+
+
 }
