@@ -261,4 +261,41 @@ class Post_Rule_Test extends TestCase
 
     }
 
+    public function testRule_Number()
+    {
+        unset($_POST['plop']);
+
+        $p = new Post_Rule_Number('plop');
+        
+        $this->assertFalse($p->check());
+        $p->dont_check_if_empty();
+        $this->assertTrue($p->check());
+        $p->check_if_empty();
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "a";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = "1,6";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = "2020/20/31";
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "1. 6";
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "1.6";
+        $this->assertTrue($p->check());
+        $_POST['plop'] = "1";
+        $this->assertTrue($p->check());
+        $_POST['plop'] = 1.6;
+        $this->assertTrue($p->check());
+        $_POST['plop'] = 5;
+        $this->assertTrue($p->check());
+        $_POST['plop'] = ".5";
+        $this->assertTrue($p->check());
+
+
+
+    }
+
 }
