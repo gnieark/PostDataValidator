@@ -10,3 +10,4 @@ require "Post_Rule_Max.php";
 require "Post_Rule_Range.php";
 require "Post_Rule_Step.php";
 require "Post_Rule_Email.php";
+require "Post_Rule_Url.php";
