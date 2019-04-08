@@ -6,7 +6,7 @@ class Post_Rule_Test extends TestCase
 {
 
     public function testInitiatepostFormObject(){
-        $p = new Post_Form_Response();
+        $p = new Post_Rule_Manager();
         $this->assertSame(true,true);
     }
 
