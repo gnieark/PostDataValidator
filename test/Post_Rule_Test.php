@@ -5,10 +5,6 @@ use PHPUnit\Framework\TestCase;
 class Post_Rule_Test extends TestCase
 {
 
-    public function testInitiatepostFormObject(){
-        $p = new Post_Rule_Manager();
-        $this->assertSame(true,true);
-    }
 
     public function testRuleRequiredMissing(){
         $p = new Post_Rule_Required("plop");
@@ -362,6 +358,20 @@ class Post_Rule_Test extends TestCase
 
     }
 
+    public function testManager()
+    {
+        unset($_POST['plop']);
 
+        $p = new Post_Rule_Manager();
+        $p  ->add_constraint('plop' , 'required', null)
+            ->add_constraint('plop','min',2);
+        $this->assertFalse($p->check());
+        $_POST['plop'] = "1";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = "2";
+        $this->assertTrue($p->check());
+
+
+    }
 
 }

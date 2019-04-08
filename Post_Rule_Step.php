@@ -10,8 +10,7 @@ class Post_Rule_Step extends Post_Rule
         )
         {
             return true;
-        }
-        
+        } 
         if(
               (!isset($_POST[ $this->field_name ])
             ||(!is_numeric($_POST[ $this->field_name ])))
