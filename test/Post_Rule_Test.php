@@ -362,13 +362,26 @@ class Post_Rule_Test extends TestCase
 
         $p = new Post_Rule_Manager();
         $p  ->add_constraint('plop' , 'required', null)
-            ->add_constraint('plop','min',2);
-        echo $p->get_jquery_validator_rules();
+            ->add_constraint('plop','min',2)
+            ->add_constraint('user','minlength',4)
+            ->add_constraint('old','range',array(7,77));
+        
         $this->assertFalse($p->check());
         $_POST['plop'] = "1";
         $this->assertFalse($p->check());
         $_POST['plop'] = "2";
+        $this->assertFalse($p->check());
+        
+        $out = json_decode($p->get_jquery_validator_rules(),true);
+        $this->assertEquals($out["plop"]["min"],2);
+
+        $_POST["user"] = "HeyHey";
+        $_POST["old"] = 15;
         $this->assertTrue($p->check());
+        $_POST["old"] = 6;
+        $this->assertFalse($p->check());
+
+
     }
 
 }
