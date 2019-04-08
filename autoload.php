@@ -11,3 +11,4 @@ require "Post_Rule_Range.php";
 require "Post_Rule_Step.php";
 require "Post_Rule_Email.php";
 require "Post_Rule_Url.php";
+require "Post_Rule_DateIso.php";

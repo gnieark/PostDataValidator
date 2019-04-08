@@ -233,4 +233,32 @@ class Post_Rule_Test extends TestCase
 
     }
 
+    
+
+    public function testRule_DateIso()
+    {
+        unset($_POST['plop']);
+
+        $p = new Post_Rule_DateIso('plop');
+        
+        $this->assertFalse($p->check());
+        $p->dont_check_if_empty();
+        $this->assertTrue($p->check());
+        $p->check_if_empty();
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "a";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = "01/01/1990";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = "2020/20/31";
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "2020-12-12";
+        $this->assertTrue($p->check());
+        $_POST['plop'] = "1845-01-01";
+        $this->assertTrue($p->check());
+
+    }
+
 }
