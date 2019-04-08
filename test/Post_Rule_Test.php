@@ -330,4 +330,38 @@ class Post_Rule_Test extends TestCase
 
     }
 
+    public function testRule_EqualTo()
+    {
+        unset($_POST['plop']);
+        unset($_POST['plip']);
+        $p = new Post_Rule_EqualTo('plop', 'plip');
+        
+        $this->assertTrue($p->check());
+        $p->dont_check_if_empty();
+        $this->assertTrue($p->check());
+        $p->check_if_empty();
+        $this->assertTrue($p->check());
+
+        $_POST['plop'] = "a";
+        $this->assertFalse($p->check());
+        $_POST['plip'] = "1,6";
+        $this->assertFalse($p->check());
+        unset($_POST['plop']);
+        $this->assertFalse($p->check());
+
+
+        unset($_POST['plip']);
+        $this->assertTrue($p->check());
+        $_POST['plip'] = "";
+        $_POST['plop'] = "";
+        $this->assertTrue($p->check());
+        $_POST['plip'] = "hey\nhey";
+        $_POST['plop'] = "hey\nhey";
+        $this->assertTrue($p->check());
+
+
+    }
+
+
+
 }
