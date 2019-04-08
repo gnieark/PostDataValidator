@@ -13,3 +13,4 @@ require "Post_Rule_Email.php";
 require "Post_Rule_Url.php";
 require "Post_Rule_DateIso.php";
 require "Post_Rule_Number.php";
+require "Post_Rule_Digits.php";

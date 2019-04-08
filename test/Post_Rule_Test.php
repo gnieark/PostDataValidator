@@ -294,7 +294,39 @@ class Post_Rule_Test extends TestCase
         $_POST['plop'] = ".5";
         $this->assertTrue($p->check());
 
+    }
+    public function testRule_Digits()
+    {
+        unset($_POST['plop']);
 
+        $p = new Post_Rule_Digits('plop');
+        
+        $this->assertFalse($p->check());
+        $p->dont_check_if_empty();
+        $this->assertTrue($p->check());
+        $p->check_if_empty();
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "a";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = "1,6";
+        $this->assertFalse($p->check());
+        $_POST['plop'] = "2020/20/31";
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "a1. 6";
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "16";
+        $this->assertTrue($p->check());
+        $_POST['plop'] = "1";
+        $this->assertTrue($p->check());
+        $_POST['plop'] = 16;
+        $this->assertTrue($p->check());
+        $_POST['plop'] = 5;
+        $this->assertTrue($p->check());
+        $_POST['plop'] = "5";
+        $this->assertTrue($p->check());
 
     }
 
