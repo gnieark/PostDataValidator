@@ -9,4 +9,4 @@ php:
 before_script:
   - curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
 script:
-- phpunit --bootstrap autoload.php classes/forms/test/Post_Rule_Test.php
+- phpunit --bootstrap autoload.php test/Post_Rule_Test.php
