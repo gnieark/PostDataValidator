@@ -2,6 +2,8 @@
 
 class Post_Rule_EqualTo extends Post_Rule
 {
+    protected $method="equalTo";
+
     public function check()
     {
         if(

@@ -2,6 +2,7 @@
 
 class Post_Rule_Min extends Post_Rule
 {
+    protected $method="min";
     public function check()
     {
         if(

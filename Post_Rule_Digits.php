@@ -3,6 +3,8 @@
 class Post_Rule_Digits extends Post_Rule
 {
 
+    protected $method="digits";
+
     public function check()
     {
        

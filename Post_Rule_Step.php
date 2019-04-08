@@ -2,6 +2,8 @@
 
 class Post_Rule_Step extends Post_Rule
 {
+    protected $method="step";
+
     public function check()
     {
         if(

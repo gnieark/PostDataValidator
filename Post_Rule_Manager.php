@@ -37,6 +37,32 @@ class Post_Rule_Manager
         }
         return true;
     }
+
+    public function  get_jquery_validator_rules(){
+        /*
+        *   field: {
+        *   required: true,
+        *   maxlength: 4
+        *   }
+        */
+
+        $rules = array();
+        foreach($this->constraints as $constrainst)
+        {
+            if(!isset( $rules[ $constrainst->get_field_name() ] )){
+                $rules[ $constrainst->get_field_name() ] = array();
+            }
+            $rules[ $constrainst->get_field_name() ] = 
+                array_merge( 
+                    $rules[ $constrainst->get_field_name() ],
+                    $constrainst->toAssociativeArray()
+                );
+        }
+
+        return json_encode( $rules);
+
+    }
+
     public function add_constraint($field_name , $validatonMethod, $params = null)
     {
         if(!isset(self::$availableRules[$validatonMethod]))

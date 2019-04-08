@@ -2,6 +2,8 @@
 
 class Post_Rule_Minlength extends Post_Rule
 {
+    protected $method="minlength";
+
     public function check()
     {
         if((!$this->check_if_empty) && empty($_POST[ $this->field_name ])){

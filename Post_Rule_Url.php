@@ -2,13 +2,13 @@
 
 class Post_Rule_Url extends Post_Rule
 {
+    protected $method="url";
     public function check()
     {
         if(
             ((!$this->check_if_empty) && empty($_POST[ $this->field_name ]))
             || ((!$this->check_if_empty) && !isset($_POST[ $this->field_name ]))
-        )
-        {
+        ){
             return true;
         }
         

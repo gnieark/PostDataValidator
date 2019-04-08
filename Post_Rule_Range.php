@@ -2,6 +2,8 @@
 
 class Post_Rule_Range extends Post_Rule
 {
+    protected $method="range";
+    
     public function check()
     {
         if((!$this->check_if_empty) && empty($_POST[ $this->field_name ])){

@@ -2,6 +2,8 @@
 
 class Post_Rule_Required extends Post_Rule
 {
+    protected $method="required";
+    
     public function check()
     {
         if(isset($_POST[ $this->field_name ])){

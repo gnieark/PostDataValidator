@@ -2,6 +2,8 @@
 
 class Post_Rule_Maxlength extends Post_Rule
 {
+    protected $method="maxlength";
+
     public function check()
     {
         if((!$this->check_if_empty) && empty($_POST[ $this->field_name ])){

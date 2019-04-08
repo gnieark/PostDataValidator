@@ -228,7 +228,6 @@ class Post_Rule_Test extends TestCase
         $this->assertTrue($p->check());
 
     }
-
     
 
     public function testRule_DateIso()
@@ -345,7 +344,6 @@ class Post_Rule_Test extends TestCase
         unset($_POST['plop']);
         $this->assertFalse($p->check());
 
-
         unset($_POST['plip']);
         $this->assertTrue($p->check());
         $_POST['plip'] = "";
@@ -365,13 +363,12 @@ class Post_Rule_Test extends TestCase
         $p = new Post_Rule_Manager();
         $p  ->add_constraint('plop' , 'required', null)
             ->add_constraint('plop','min',2);
+        echo $p->get_jquery_validator_rules();
         $this->assertFalse($p->check());
         $_POST['plop'] = "1";
         $this->assertFalse($p->check());
         $_POST['plop'] = "2";
         $this->assertTrue($p->check());
-
-
     }
 
 }

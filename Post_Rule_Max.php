@@ -2,6 +2,8 @@
 
 class Post_Rule_Max extends Post_Rule
 {
+    protected $method="max";
+
     public function check()
     {
         if(

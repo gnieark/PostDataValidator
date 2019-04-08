@@ -2,6 +2,8 @@
 
 class Post_Rule_Email extends Post_Rule
 {
+    protected $method="email";
+    
     public function check()
     {
         if(

@@ -2,6 +2,8 @@
 
 class Post_Rule_DateIso extends Post_Rule
 {
+    protected $method="dateIso";
+
     public function check()
     {
         // NOTE: jquery validator dateISO , it's not ISO, just AAAA-MM-DD

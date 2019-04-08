@@ -5,6 +5,8 @@ class Post_Rule_Number extends Post_Rule
     /*
     * EG is float
     */
+
+    protected $method="number";
     public function check()
     {
        
