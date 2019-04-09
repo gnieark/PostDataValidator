@@ -4,6 +4,8 @@ class Post_Rule_Step extends Post_Rule
 {
     protected $method="step";
 
+    public static $type_of_param = 'int';
+
     public function check()
     {
         if(
@@ -25,11 +27,12 @@ class Post_Rule_Step extends Post_Rule
 
         return false;
     }
-    public function __construct($field_name, $params = null){
+    public function __construct($field_name, $params = null , $message = null){
         $this->field_name = $field_name;
         if(!is_int($params)){
             throw new \UnexpectedValueException("param must be an integer. Given: " .$params);
         }
         $this->params = $params;
+        $this->set_message($message);
     }
 }

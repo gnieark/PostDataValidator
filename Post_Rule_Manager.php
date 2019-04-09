@@ -14,7 +14,7 @@ class Post_Rule_Manager
         'required'  => 'Post_Rule_Required',
         'minlength' => 'Post_Rule_Minlength',
         'maxlength' => 'Post_Rule_Maxlength',
-        'rangelength' => 'Post_Rule_Rangelengh',
+        'rangelength' => 'Post_Rule_Rangelenght',
         'min'       => 'Post_Rule_Min',
         'max'       => 'Post_Rule_Max',
         'range'     => 'Post_Rule_Range',
@@ -22,8 +22,8 @@ class Post_Rule_Manager
         'email'     => 'Post_Rule_Email',
         'url'       => 'Post_Rule_Url',
         'dateIso'   => 'Post_Rule_DateIso',
-        'number'    => 'Post_Rule_Rangelengh',
-        'digit'     => 'Post_Rule_Digit',
+        'number'    => 'Post_Rule_Number',
+        'digit'     => 'Post_Rule_Digits',
         'equalTo'    => 'Post_Rule_EqualTo',
         'in'        => 'Post_Rule_In'
     );
@@ -40,7 +40,21 @@ class Post_Rule_Manager
         return true;
     }
 
-    public function  get_jquery_validator_rules(){
+    public function get_jquery_validate_code($formId){
+        return
+        '$("#' . $formId . '")validate({
+            rules: ' . json_encode($this -> get_jquery_validator_rules(), true) . ',
+            messages: ' .json_encode($this-> get_jquery_validator_messages(), true) . '
+        });';
+
+    }
+
+    public function get_jquery_validator_messages(){
+
+        return array();
+    }
+    public function get_jquery_validator_rules()
+    {
 
         $rules = array();
         foreach($this->constraints as $constrainst)
@@ -55,11 +69,11 @@ class Post_Rule_Manager
                 );
         }
 
-        return json_encode( $rules);
+        return $rules;
 
     }
 
-    public function add_constraint($field_name , $validatonMethod, $params = null, $custommessage = null)
+    public function add_constraint($field_name , $validatonMethod, $params = null, $message = null)
     {
         if(!isset(self::$availableRules[$validatonMethod]))
         {

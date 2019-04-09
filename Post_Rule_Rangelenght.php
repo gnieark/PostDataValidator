@@ -3,6 +3,8 @@
 class Post_Rule_Rangelenght extends Post_Rule
 {
     protected $method="rangelength";
+
+    public static $type_of_param = 'arrayofint';
     
     public function check()
     {
@@ -15,7 +17,7 @@ class Post_Rule_Rangelenght extends Post_Rule
         return ($minlenghtRule->check() && $maxlenghtRule->check());
     }
     
-    public function __construct($field_name, $params = null){
+    public function __construct($field_name, $params = null , $message = null){
         $this->field_name = $field_name;
         if(
             (isset($params[0]))
@@ -27,5 +29,6 @@ class Post_Rule_Rangelenght extends Post_Rule
         }else{
             throw new \UnexpectedValueException("param must be an array containing two integers, min and max" );
         }
+        $this->set_message($message);
     }
 }

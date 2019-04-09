@@ -386,6 +386,45 @@ class Post_Rule_Test extends TestCase
         $this->assertTrue($p->check());
 
     }
+
+    function testMessages()
+    {
+
+        $availableRules = Post_Rule_Manager::$availableRules;
+        foreach ($availableRules as $rule)
+        {
+           
+            switch ($rule::$type_of_param){
+                case 'null':
+                    $param = null;
+                    break;
+                case 'string':
+                    $param ="kjhkjlhgjhgf";
+                    break;
+                case 'arrayofstring':
+                    $param = array('kjhkhy','kglgssqs','54:l');
+                    break;
+                case 'arrayofint':
+                    $param = array(54,98,3);
+                    break;
+                case 'int':
+                    $param = rand(1,6666);
+                    break;
+                default:
+                    return false;
+                    break;
+            }
+
+            $message = uniqid();
+            $obj = new $rule('plop',$param,$message);
+            $backMessage = $obj->error_message_on_assoc_array();     
+            $this->assertEquals( $message , $backMessage[ $obj->get_method() ]);
+            
+        }
+
+    }
+
+
     public function testManager()
     {
         unset($_POST['plop']);
@@ -402,7 +441,7 @@ class Post_Rule_Test extends TestCase
         $_POST['plop'] = "2";
         $this->assertFalse($p->check());
         
-        $out = json_decode($p->get_jquery_validator_rules(),true);
+        $out = $p->get_jquery_validator_rules();
         $this->assertEquals($out["plop"]["min"],2);
 
         $_POST["user"] = "HeyHey";

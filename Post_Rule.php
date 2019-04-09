@@ -12,6 +12,9 @@ class Post_Rule
 
     protected $custom_message;
 
+    public static $type_of_param = 'null';
+    
+
     /*
     * check_if_empty
     * When true, var is checcked as an empty string. It may pass or not the rule test
@@ -40,15 +43,22 @@ class Post_Rule
         return false;
     }
 
-    public function __construct($field_name, $params = null){
+    public function __construct($field_name, $params = null , $message = null){
         $this->field_name = $field_name;
         $this->params = $params;
+        $this->set_message($message);
     }
 
+    public function set_message($message){
+        if(!is_null($message)){
+            $this->custom_message = $message;
+        }
+        return $this; //for chaining
+    }
     
     public function error_message_on_assoc_array()
     {
-        return array($this->method =>  get_error_message());
+        return array($this->method =>  $this->get_error_message());
     }
 
     public function get_error_message(){
