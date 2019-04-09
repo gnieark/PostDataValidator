@@ -56,7 +56,7 @@ class Post_Rule
         return $this; //for chaining
     }
     
-    public function error_message_on_assoc_array()
+    public function get_error_message_on_assoc_array()
     {
         return array($this->method =>  $this->get_error_message());
     }

@@ -417,7 +417,7 @@ class Post_Rule_Test extends TestCase
 
             $message = uniqid();
             $obj = new $rule('plop',$param,$message);
-            $backMessage = $obj->error_message_on_assoc_array();     
+            $backMessage = $obj->get_error_message_on_assoc_array();     
             $this->assertEquals( $message , $backMessage[ $obj->get_method() ]);
             
         }
