@@ -10,6 +10,8 @@ class Post_Rule
     protected $params;
     protected $method;
 
+    protected $custom_message;
+
     /*
     * check_if_empty
     * When true, var is checcked as an empty string. It may pass or not the rule test
@@ -43,6 +45,19 @@ class Post_Rule
         $this->params = $params;
     }
 
+    
+    public function error_message_on_assoc_array()
+    {
+        return array($this->method =>  get_error_message());
+    }
+
+    public function get_error_message(){
+        if(empty($this->custom_message)){
+            return "Inconrect value for " . $this->field_name;
+        }else{
+            return $this->custom_message;
+        }
+    }
     /*
     * Generate the rule string on the JS JQUERY validation form
     * Will work most of times, erase it on childs class when specific
@@ -58,7 +73,7 @@ class Post_Rule
         }
         return $this->method . ": " . $parameter ;
     }
-    public function toAssociativeArray()
+    public function to_associative_array()
     {
         if(is_null($this->params)){
             $parameter = "true";

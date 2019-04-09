@@ -356,6 +356,36 @@ class Post_Rule_Test extends TestCase
 
     }
 
+    public function testIn(){
+     
+        unset($_POST['plop']);
+        
+        $p = new Post_Rule_In('plop', array('banana', 'apple', 'kiwis'));
+        
+        $this->assertFalse($p->check());
+        $p->dont_check_if_empty();
+        $this->assertTrue($p->check());
+        $p->check_if_empty();
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = "coins";
+        $this->assertFalse($p->check());
+ 
+        $_POST['plop'] = "apple";
+        $this->assertTrue($p->check());
+
+        $p = new Post_Rule_In('plop', array(5,9,8));
+
+        $_POST['plop'] = "coins";
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = 3;
+        $this->assertFalse($p->check());
+
+        $_POST['plop'] = 9;
+        $this->assertTrue($p->check());
+
+    }
     public function testManager()
     {
         unset($_POST['plop']);

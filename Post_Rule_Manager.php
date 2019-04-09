@@ -9,7 +9,8 @@ class Post_Rule_Manager
 
     private $constraints = array();
 
-    public static $availableRules = array( //validationMethos => callbackclass
+    public static $availableRules = array( 
+
         'required'  => 'Post_Rule_Required',
         'minlength' => 'Post_Rule_Minlength',
         'maxlength' => 'Post_Rule_Maxlength',
@@ -23,7 +24,8 @@ class Post_Rule_Manager
         'dateIso'   => 'Post_Rule_DateIso',
         'number'    => 'Post_Rule_Rangelengh',
         'digit'     => 'Post_Rule_Digit',
-        'equalTo'    => 'Post_Rule_EqualTo'
+        'equalTo'    => 'Post_Rule_EqualTo',
+        'in'        => 'Post_Rule_In'
     );
 
     public function check()
@@ -39,12 +41,6 @@ class Post_Rule_Manager
     }
 
     public function  get_jquery_validator_rules(){
-        /*
-        *   field: {
-        *   required: true,
-        *   maxlength: 4
-        *   }
-        */
 
         $rules = array();
         foreach($this->constraints as $constrainst)
@@ -55,7 +51,7 @@ class Post_Rule_Manager
             $rules[ $constrainst->get_field_name() ] = 
                 array_merge( 
                     $rules[ $constrainst->get_field_name() ],
-                    $constrainst->toAssociativeArray()
+                    $constrainst->to_associative_array()
                 );
         }
 
@@ -63,7 +59,7 @@ class Post_Rule_Manager
 
     }
 
-    public function add_constraint($field_name , $validatonMethod, $params = null)
+    public function add_constraint($field_name , $validatonMethod, $params = null, $custommessage = null)
     {
         if(!isset(self::$availableRules[$validatonMethod]))
         {
