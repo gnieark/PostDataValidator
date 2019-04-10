@@ -25,7 +25,7 @@ class Post_Rule_In extends Post_Rule
 
         $this->field_name = $field_name;
         if(!is_array($params)){
-            throw new \UnexpectedValueException("param must be an array" );
+            throw new \UnexpectedValueException("param must be an array");
         }
         $this->params = $params;
         $this->set_message($message);

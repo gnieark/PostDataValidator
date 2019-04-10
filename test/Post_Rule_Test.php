@@ -449,8 +449,6 @@ class Post_Rule_Test extends TestCase
         $this->assertTrue($p->check());
         $_POST["old"] = 6;
         $this->assertFalse($p->check());
-
-
     }
 
 }

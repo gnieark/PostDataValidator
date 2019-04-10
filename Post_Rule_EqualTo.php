@@ -33,6 +33,13 @@ class Post_Rule_EqualTo extends Post_Rule
 
         return false;
     }
+
+    public function to_associative_array()
+    {
+        return array($this->method => "#" . $this->params) ;
+    }
+
+
     public function __construct($field_name, $params = null , $message = null){
 
         $this->field_name = $field_name;

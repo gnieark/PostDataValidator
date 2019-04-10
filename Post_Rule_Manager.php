@@ -3,7 +3,7 @@
 class Post_Rule_Manager
 {
     /*
-    *   Somme tools to check a Form awnser with post values
+    * Somme tools to check a Form awnser with post values
     */
 
 
@@ -11,31 +11,41 @@ class Post_Rule_Manager
 
     public static $availableRules = array( 
 
-        'required'  => 'Post_Rule_Required',
-        'minlength' => 'Post_Rule_Minlength',
-        'maxlength' => 'Post_Rule_Maxlength',
-        'rangelength' => 'Post_Rule_Rangelenght',
-        'min'       => 'Post_Rule_Min',
-        'max'       => 'Post_Rule_Max',
-        'range'     => 'Post_Rule_Range',
-        'step'      => 'Post_Rule_Step',
-        'email'     => 'Post_Rule_Email',
-        'url'       => 'Post_Rule_Url',
-        'dateIso'   => 'Post_Rule_DateIso',
-        'number'    => 'Post_Rule_Number',
-        'digit'     => 'Post_Rule_Digits',
-        'equalTo'    => 'Post_Rule_EqualTo',
-        'in'        => 'Post_Rule_In'
+        'required'      => 'Post_Rule_Required',
+        'minlength'     => 'Post_Rule_Minlength',
+        'maxlength'     => 'Post_Rule_Maxlength',
+        'rangelength'   => 'Post_Rule_Rangelenght',
+        'min'           => 'Post_Rule_Min',
+        'max'           => 'Post_Rule_Max',
+        'range'         => 'Post_Rule_Range',
+        'step'          => 'Post_Rule_Step',
+        'email'         => 'Post_Rule_Email',
+        'url'           => 'Post_Rule_Url',
+        'dateIso'       => 'Post_Rule_DateIso',
+        'number'        => 'Post_Rule_Number',
+        'digit'         => 'Post_Rule_Digits',
+        'equalTo'       => 'Post_Rule_EqualTo',
+        'in'            => 'Post_Rule_In'
     );
+
+    public $last_check_log = "";
 
     public function check()
     {
-        foreach($this->constraints as $constrainst)
+        $this->last_check_log = "";
+        foreach($this->constraints as $constraint)
         {
-            if($constrainst->check() === false){
+            if($constraint->check() === false){
+                $this->last_check_log .= "FAIL ON FIELD: " . $constraint->get_field_name()
+                                        . " METHOD: " . $constraint->get_method() 
+                                        . " VALUE: " . (isset($_POST[$constraint->get_field_name()])? $_POST[$constraint->get_field_name()] : "UNSETTED");
+
                 return false;
             }
-            
+            $this->last_check_log .= "SUCCESS ON FIELD: " . $constraint->get_field_name()
+            . " METHOD: " . $constraint->get_method() 
+            . " VALUE: " . (isset($_POST[$constraint->get_field_name()])? $_POST[$constraint->get_field_name()] : "UNSETTED") . "\n";
+
         }
         return true;
     }
