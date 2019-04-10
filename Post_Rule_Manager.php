@@ -61,7 +61,7 @@ class Post_Rule_Manager
         $messages = array();
         foreach($this->constraints as $constrainst)
         {
-            if($constrainst->get_error_message_on_assoc_array() <> ""){
+            if(!empty($constrainst->get_error_message_on_assoc_array())){
                 if(!isset( $messages[ $constrainst->get_field_name() ] )){
                     $messages[ $constrainst->get_field_name() ] = array();
                 }
