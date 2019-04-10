@@ -63,7 +63,7 @@ class Post_Rule
 
     public function get_error_message(){
         if(empty($this->custom_message)){
-            return "Inconrect value for " . $this->field_name;
+            return "Incorrect value for " . $this->field_name;
         }else{
             return $this->custom_message;
         }
@@ -86,7 +86,7 @@ class Post_Rule
     public function to_associative_array()
     {
         if(is_null($this->params)){
-            $parameter = "true";
+            $parameter = true;
         }else{
             $parameter = $this->params;
         }

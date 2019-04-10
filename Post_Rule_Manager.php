@@ -42,7 +42,7 @@ class Post_Rule_Manager
 
     public function get_jquery_validate_code($formId){
         return
-        '$("#' . $formId . '")validate({
+        '$("#' . $formId . '").validate({
             rules: ' . json_encode($this -> get_jquery_validator_rules(), true) . ',
             messages: ' .json_encode($this-> get_jquery_validator_messages(), true) . '
         });';
@@ -50,8 +50,20 @@ class Post_Rule_Manager
     }
 
     public function get_jquery_validator_messages(){
-
-        return array();
+        $messages = array();
+        foreach($this->constraints as $constrainst)
+        {
+            if(!empty($constrainst->get_error_message_on_assoc_array())){
+                if(!isset( $messages[ $constrainst->get_field_name() ] )){
+                    $messages[ $constrainst->get_field_name() ] = array();
+                }
+                $messages[ $constrainst->get_field_name() ] = array_merge(
+                    $messages[ $constrainst->get_field_name() ],
+                    $constrainst->get_error_message_on_assoc_array()
+                );
+            }
+        }
+        return $messages;
     }
     public function get_jquery_validator_rules()
     {
@@ -59,18 +71,19 @@ class Post_Rule_Manager
         $rules = array();
         foreach($this->constraints as $constrainst)
         {
-            if(!isset( $rules[ $constrainst->get_field_name() ] )){
-                $rules[ $constrainst->get_field_name() ] = array();
+            if(!empty($constrainst->to_associative_array())){
+                if(!isset( $rules[ $constrainst->get_field_name() ] )){
+                    $rules[ $constrainst->get_field_name() ] = array();
+                }
+                $rules[ $constrainst->get_field_name() ] = 
+                    array_merge( 
+                        $rules[ $constrainst->get_field_name() ],
+                        $constrainst->to_associative_array()
+                    );
             }
-            $rules[ $constrainst->get_field_name() ] = 
-                array_merge( 
-                    $rules[ $constrainst->get_field_name() ],
-                    $constrainst->to_associative_array()
-                );
+
         }
-
         return $rules;
-
     }
 
     public function add_constraint($field_name , $validatonMethod, $params = null, $message = null)
@@ -80,7 +93,7 @@ class Post_Rule_Manager
             throw new \UnexpectedValueException("Unknowed validation method given " . $validatonMethod);
         }
         $ruleClass = self::$availableRules[ $validatonMethod ];
-        $this->constraints[] = new $ruleClass($field_name,$params);
+        $this->constraints[] = new $ruleClass($field_name,$params,$message);
 
         return $this;
     }

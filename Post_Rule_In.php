@@ -30,4 +30,13 @@ class Post_Rule_In extends Post_Rule
         $this->params = $params;
         $this->set_message($message);
     }
+    
+    public function to_associative_array()
+    {
+        //this method is not jquery validate compatible, so export empty array
+        return array() ;
+    }
+ 
+
+
 }
