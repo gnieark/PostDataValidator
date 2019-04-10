@@ -33,10 +33,19 @@ class Post_Rule_In extends Post_Rule
     
     public function to_associative_array()
     {
-        //this method is not jquery validate compatible, so export empty array
-        return array() ;
+        return array($this->method =>  $this->params);
     }
- 
+
+    public function get_jquery_validator_custom_method(){
+
+        return '"' . $this->method . '",
+        function(value,element,param){  
+            return ($.inArray(value,param) >= 0);
+        },
+        "Please check your input"
+        ';
+
+    }
 
 
 }

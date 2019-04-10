@@ -72,17 +72,7 @@ class Post_Rule
     * Generate the rule string on the JS JQUERY validation form
     * Will work most of times, erase it on childs class when specific
     */
-    public function __toString()
-    {
-        if(is_null($this->params)){
-            $parameter = "true";
-        }elseif(is_array($this->params)){
-            $parameter = json_encode($this->params);
-        }else{
-            $parameter = $this->params;
-        }
-        return $this->method . ": " . $parameter ;
-    }
+
     public function to_associative_array()
     {
         if(is_null($this->params)){
@@ -91,5 +81,13 @@ class Post_Rule
             $parameter = $this->params;
         }
         return array($this->method => $parameter) ;
+    }
+
+    /*
+    *   Erase it on chield class if method is not a native one on jquery validator
+    */
+    public function get_jquery_validator_custom_method()
+    {
+        return "";
     }
 }

@@ -41,8 +41,16 @@ class Post_Rule_Manager
     }
 
     public function get_jquery_validate_code($formId){
+
+        $methods = $this->get_jquery_validator_custom_methods();
+        $metStr = "";
+        foreach($methods as $method)
+        {
+            $metStr .=  '$.validator.addMethod(' . $method . ");\n";
+        }
         return
-        '$("#' . $formId . '").validate({
+        $metStr .'
+        $("#' . $formId . '").validate({
             rules: ' . json_encode($this -> get_jquery_validator_rules(), true) . ',
             messages: ' .json_encode($this-> get_jquery_validator_messages(), true) . '
         });';
@@ -84,6 +92,22 @@ class Post_Rule_Manager
 
         }
         return $rules;
+    }
+
+    public function get_jquery_validator_custom_methods()
+    {
+        $methods = array();
+        
+        foreach($this->constraints as $constrainst)
+        {
+
+            if(!empty($constrainst-> get_jquery_validator_custom_method())){
+                $methods[] = $constrainst->get_jquery_validator_custom_method();
+                
+            }
+
+        }
+        return $methods;
     }
 
     public function add_constraint($field_name , $validatonMethod, $params = null, $message = null)
