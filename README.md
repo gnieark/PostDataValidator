@@ -5,9 +5,9 @@
 
 This  class generate the jquery validator code, and can be used to recheck the rules on PHP, server side, after the submission.
 
-## dev status:
+## Dev status:
 
-Writing the doc (this readme)
+Looks OK, being integrated in other projects.
 
 ## Getting Started
 
@@ -17,9 +17,9 @@ Tested with PHP 5.6 , 7.0, 7.1,  7.2
 Does not work with 5.4.
 
 ### Installing
-Install jquery and the plugin jquery-validate on your headers.
+Call jquery and the plugin jquery-validate on your page header.
 
-Open a new object:
+PHP, Open a new object:
 
     $rulesChecker = new Post_Rule_Manager();
 
@@ -27,24 +27,53 @@ Add a contrainst on a field:
 
     $rulesChecker-> add_constraint('FieldName', 'validation_method', parameters, 'string error sentence')
 
-* field_name:
-* validation_method:
-* parameter:
-* sentence:
+* Field_name: The name and the input 's id
+* Validation_method: List is given below
+* Parameter: Explained below
+* Sentence: What is indicated for the user.
 
 Get Jquery validate Code:
-In a header javascript script, in the usual  $().ready( ... put the result of get_jquery_validate_code($formId) method. like this:
+
+In a javascript script on the header,
+in the usual  $().ready( ... put the result of get_jquery_validate_code($formId) method. like this:
 
     <script>
           $().ready(function() {
                 <?php echo ($rulesChecker->get_jquery_validate_code('FormId')); ?>
             });    
     </script>
+
+
+Check the data send by user, server  side
+
+    $rulesChecker->check()
+
+Will return true if submitted data pass the tests. False if not.
+
+### Validation methods and parameters:
+
+* required: The field is mandatory. Set parameter to null.
+* minlength: The minimal length. Parameter is an integer.
+* maxlength: the awnser's maximal length. Parameter is an integer.
+* rangelength: A range. parameter is a non associative array. First item is an integer, the minimal. Second item is an integer too, the maximal wanted.
+* min: Awnser expected is numeric. parameter is an integer.
+* max: idem
+* range: Awnser expected is numeric. Parameter is a non associative array containing two integers. First one is the min, second one the max.
+* step: Awnser expected is numeric and must be divisible by the step parameter. Parameter is an integer.
+* email: Check if awnser is a valid email. Set parameter to null.
+* url: Check if awnser is a valid URL. Set parameter to null.
+* dateIso: Check if awnser is a valid Date with YYYY-MM-dd format. Set parameter to null.
+* number: check if awnser is a valid Number (can, be float with a dot). Set parameter to null.
+* digit: Check if answer only contains digits. Set parameter to null.
+* equalTo: the awnser value must be the same as an other. Parameter is a string, the input name and id we will compare the value.
+* in : Answer must be an element of a given list. Parameter is the list, a non associative array of strings.
+
+
 ### Sample:
 
 
 An old PHP style form with this class that can be tested there: 
-[test PostDataValidator] (https://postdatavalidator-demo.tinad.fr/)
+[test PostDataValidator](https://postdatavalidator-demo.tinad.fr/)
 
 
     <?php
@@ -140,3 +169,23 @@ An old PHP style form with this class that can be tested there:
             </form>
         </body>
     </html>
+
+## Running the tests
+
+Install phpunit and launch the test.sh script.
+
+
+## To do
+
+* Implement option tu put rules on optionals fields
+* Implement a method to add others rules (and document it)
+
+
+## Authors
+
+* **Gnieark** (blog: https://blog-du-grouik.tinad.fr ) - *Initial work* -
+* See also the list of [contributors](https://github.com/gnieark/PostDataValidatorcontributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
