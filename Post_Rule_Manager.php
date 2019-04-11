@@ -38,13 +38,13 @@ class Post_Rule_Manager
             if($constraint->check() === false){
                 $this->last_check_log .= "FAIL ON FIELD: " . $constraint->get_field_name()
                                         . " METHOD: " . $constraint->get_method() 
-                                        . " VALUE: " . (isset($_POST[$constraint->get_field_name()])? $_POST[$constraint->get_field_name()] : "UNSETTED");
+                                        . " VALUE: " . (isset($_POST[$constraint->get_field_name()])? htmlentities($_POST[$constraint->get_field_name()]) : "UNSETTED");
 
                 return false;
             }
             $this->last_check_log .= "SUCCESS ON FIELD: " . $constraint->get_field_name()
             . " METHOD: " . $constraint->get_method() 
-            . " VALUE: " . (isset($_POST[$constraint->get_field_name()])? $_POST[$constraint->get_field_name()] : "UNSETTED") . "\n";
+            . " VALUE: " . (isset($_POST[$constraint->get_field_name()])? htmlentities($_POST[$constraint->get_field_name()]) : "UNSETTED") . "\n";
 
         }
         return true;
