@@ -180,6 +180,9 @@ Install phpunit and launch the test.sh script.
 * Implement option tu put rules on optionals fields
 * Implement a method to add others rules (and document it)
 
+## Contributing
+
+Submit pull requests. ;) . To talk, use githubs' issues or [Twitter](https://twitter.com/gnieark)
 
 ## Authors
 
