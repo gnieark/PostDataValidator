@@ -187,7 +187,7 @@ Submit pull requests. ;) . To talk, use githubs' issues or [Twitter](https://twi
 ## Authors
 
 * **Gnieark** (blog: https://blog-du-grouik.tinad.fr ) - *Initial work* -
-* See also the list of [contributors](https://github.com/gnieark/PostDataValidatorcontributors) who participated in this project.
+* See also the list of [contributors](https://github.com/gnieark/PostDataValidator/contributors) who participated in this project.
 
 ## License
 
